@@ -94,7 +94,7 @@ def generate_architecture_graph(intent_ir):
 
     response = client.chat.completions.create(
         model="openai/gpt-3.5-turbo",
-        temperature=0,
+        max_tokens=1200, temperature=0.2,
         messages=[
             {
                 "role": "system",
