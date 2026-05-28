@@ -1,0 +1,78 @@
+{
+  "total_tests": 10,
+  "successful_runs": 10,
+  "success_rate": 100.0,
+  "average_latency": 32.72,
+  "results": [
+    {
+      "prompt": "Build a CRM with login and analytics",
+      "success": true,
+      "latency_seconds": 24.87,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build an e-commerce app with payments",
+      "success": true,
+      "latency_seconds": 23.27,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a hospital management system",
+      "success": true,
+      "latency_seconds": 61.41,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a food delivery app",
+      "success": true,
+      "latency_seconds": 33.78,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a school management portal",
+      "success": true,
+      "latency_seconds": 42.32,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a social media app",
+      "success": true,
+      "latency_seconds": 31.25,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a ride booking platform",
+      "success": true,
+      "latency_seconds": 28.52,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a fitness tracker app",
+      "success": true,
+      "latency_seconds": 24.07,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build an inventory management system",
+      "success": true,
+      "latency_seconds": 26.94,
+      "repair_success": true,
+      "api_repair_success": true
+    },
+    {
+      "prompt": "Build a banking dashboard",
+      "success": true,
+      "latency_seconds": 30.8,
+      "repair_success": true,
+      "api_repair_success": true
+    }
+  ]
+}
