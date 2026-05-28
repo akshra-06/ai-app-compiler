@@ -14,7 +14,7 @@ export default function CompilerPage() {
       setLoading(true);
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/generate-ir`,
+        "https://ai-app-compiler-backend-eith.onrender.com/generate-ir",
         {
           prompt: prompt,
         },
