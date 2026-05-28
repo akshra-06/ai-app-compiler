@@ -1,3 +1,7 @@
+# Live Demo
+
+https://ai-app-compiler-phi.vercel.app
+
 # AI App Compiler
 
 A compiler-inspired AI system that converts natural language product requirements into structured, validated, and executable full-stack application configurations.
