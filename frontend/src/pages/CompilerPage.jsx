@@ -18,7 +18,7 @@ export default function CompilerPage() {
             setLoading(true)
 
             const response = await axios.post(
-                "http://127.0.0.1:8000/compile-app",
+                `${import.meta.env.VITE_API_URL}/compile-app`,
                 {
                     prompt: prompt
                 }
