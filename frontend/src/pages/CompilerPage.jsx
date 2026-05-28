@@ -1,59 +1,48 @@
-
-import { useState } from "react"
-import axios from "axios"
+import { useState } from "react";
+import axios from "axios";
 
 export default function CompilerPage() {
+  const [prompt, setPrompt] = useState("");
 
-    const [prompt, setPrompt] = useState("")
+  const [result, setResult] = useState(null);
 
-    const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("intent");
 
-    const [loading, setLoading] = useState(false)
-    const [activeTab, setActiveTab] = useState("intent")
+  async function generateApp() {
+    try {
+      setLoading(true);
 
-    async function generateApp() {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/generate-ir`,
+        {
+          prompt: prompt,
+        },
+      );
 
-        try {
-
-            setLoading(true)
-
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/compile-app`,
-                {
-                    prompt: prompt
-                }
-            )
-
-            setResult(response.data)
-
-        } catch (error) {
-
-            console.error(error)
-
-        } finally {
-
-            setLoading(false)
-
-        }
+      setResult(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    return (
-
-        <div className="min-h-screen bg-slate-950 text-white p-10">
-
-            <h1
-                className="
+  return (
+    <div className="min-h-screen bg-slate-950 text-white p-10">
+      <h1
+        className="
                     text-5xl
                     font-bold
                     mb-10
                     text-blue-400
                 "
-            >
-                AI App Compiler
-            </h1>
+      >
+        AI App Compiler
+      </h1>
 
-            <div
-                className="
+      <div
+        className="
                     bg-slate-900
                     p-6
                     rounded-2xl
@@ -61,18 +50,15 @@ export default function CompilerPage() {
                     border-slate-800
                     mb-10
                 "
-            >
-
-                <textarea
-                    placeholder="
+      >
+        <textarea
+          placeholder="
 Build a CRM with login,
 subscriptions and analytics...
                     "
-                    value={prompt}
-                    onChange={(e) =>
-                        setPrompt(e.target.value)
-                    }
-                    className="
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          className="
                         w-full
                         h-40
                         bg-slate-800
@@ -81,11 +67,11 @@ subscriptions and analytics...
                         outline-none
                         text-white
                     "
-                />
+        />
 
-                <button
-                    onClick={generateApp}
-                    className="
+        <button
+          onClick={generateApp}
+          className="
                         mt-6
                         bg-blue-500
                         hover:bg-blue-600
@@ -94,224 +80,140 @@ subscriptions and analytics...
                         rounded-xl
                         font-semibold
                     "
-                >
+        >
+          {loading ? "Generating..." : "Generate App"}
+        </button>
+      </div>
 
-                    {
-                        loading
-                        ? "Generating..."
-                        : "Generate App"
-                    }
-
-                </button>
-
-            </div>
-
-            {
-                result && (
-
-                   
-<div>
-
-    <div className="flex gap-4 mb-6 flex-wrap">
-
-        <TabButton
-            label="Intent"
-            tab="intent"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="Architecture"
-            tab="architecture"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="Database"
-            tab="database"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="API"
-            tab="api"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="UI"
-            tab="ui"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="Models"
-            tab="models"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-        <TabButton
-            label="Routes"
-            tab="routes"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-        />
-
-    </div>
-
-    {
-        activeTab === "intent" && (
-            <Section
-                title="Intent"
-                data={result.intent}
+      {result && (
+        <div>
+          <div className="flex gap-4 mb-6 flex-wrap">
+            <TabButton
+              label="Intent"
+              tab="intent"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "architecture" && (
-            <Section
-                title="Architecture"
-                data={result.architecture}
+            <TabButton
+              label="Architecture"
+              tab="architecture"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "database" && (
-            <Section
-                title="Database Schema"
-                data={result.database_schema}
+            <TabButton
+              label="Database"
+              tab="database"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "api" && (
-            <Section
-                title="API Schema"
-                data={result.api_schema}
+            <TabButton
+              label="API"
+              tab="api"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "ui" && (
-            <Section
-                title="UI Schema"
-                data={result.ui_schema}
+            <TabButton
+              label="UI"
+              tab="ui"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "models" && (
-            <Section
-                title="SQLAlchemy Models"
-                data={result.sqlalchemy_models}
+            <TabButton
+              label="Models"
+              tab="models"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
 
-    {
-        activeTab === "routes" && (
-            <Section
-                title="FastAPI Routes"
-                data={result.fastapi_routes}
+            <TabButton
+              label="Routes"
+              tab="routes"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
             />
-        )
-    }
+          </div>
 
-</div>
+          {activeTab === "intent" && (
+            <Section title="Intent" data={result.intent} />
+          )}
 
+          {activeTab === "architecture" && (
+            <Section title="Architecture" data={result.architecture} />
+          )}
 
+          {activeTab === "database" && (
+            <Section title="Database Schema" data={result.database_schema} />
+          )}
 
+          {activeTab === "api" && (
+            <Section title="API Schema" data={result.api_schema} />
+          )}
 
-                   
+          {activeTab === "ui" && (
+            <Section title="UI Schema" data={result.ui_schema} />
+          )}
 
-                    
-                )
-            }
+          {activeTab === "models" && (
+            <Section
+              title="SQLAlchemy Models"
+              data={result.sqlalchemy_models}
+            />
+          )}
 
+          {activeTab === "routes" && (
+            <Section title="FastAPI Routes" data={result.fastapi_routes} />
+          )}
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
-
-function Section({
-    title,
-    data
-}) {
-
-    return (
-
-        <div
-            className="
+function Section({ title, data }) {
+  return (
+    <div
+      className="
                 bg-slate-900
                 border
                 border-slate-800
                 rounded-2xl
                 p-6
             "
-        >
-
-            <h2
-                className="
+    >
+      <h2
+        className="
                     text-2xl
                     font-bold
                     mb-4
                     text-blue-400
                 "
-            >
-                {title}
-            </h2>
+      >
+        {title}
+      </h2>
 
-            <pre
-                className="
+      <pre
+        className="
                     overflow-x-auto
                     text-sm
                     text-slate-300
                 "
-            >
-                
-{
-    typeof data === "string"
-    ? data
-    : JSON.stringify(
-        data,
-        null,
-        2
-    )
+      >
+        {typeof data === "string" ? data : JSON.stringify(data, null, 2)}
+      </pre>
+    </div>
+  );
 }
 
-
-            </pre>
-
-        </div>
-    )
-}
-
-
-function TabButton({
-    label,
-    tab,
-    activeTab,
-    setActiveTab
-}) {
-
-    return (
-
-        <button
-            onClick={() =>
-                setActiveTab(tab)
-            }
-            className={`
+function TabButton({ label, tab, activeTab, setActiveTab }) {
+  return (
+    <button
+      onClick={() => setActiveTab(tab)}
+      className={`
                 px-5
                 py-2
                 rounded-xl
@@ -319,14 +221,13 @@ function TabButton({
                 transition
 
                 ${
-                    activeTab === tab
+                  activeTab === tab
                     ? "bg-blue-500 text-white"
                     : "bg-slate-800 text-slate-300"
                 }
             `}
-        >
-            {label}
-        </button>
-    )
+    >
+      {label}
+    </button>
+  );
 }
-
