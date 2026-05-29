@@ -11,6 +11,8 @@ import {
 import LoginPage from "../pages/LoginPage";
 import ContactsPage from "../generated/ContactsPage";
 import DashboardPage from "../generated/DashboardPage";
+import OrchestratorPage from "../pages/OrchestratorPage"
+
 
 export default function AppRoutes() {
 
@@ -41,6 +43,8 @@ export default function AppRoutes() {
           path="/dashboard"
           element={<DashboardPage />}
         />
+
+        <Route path="/orchestrator" element={<OrchestratorPage />} />
 
       </Routes>
 
