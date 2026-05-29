@@ -40,7 +40,10 @@ function App() {
                     path="/analytics"
                     element={<AnalyticsPage />}
                 /> */}
-
+    <Route
+    path="/"
+    element={<Navigate to="/orchestrator" replace />}
+/>
                 <Route
                     path="/orchestrator"
                     element={<OrchestratorPage />}
