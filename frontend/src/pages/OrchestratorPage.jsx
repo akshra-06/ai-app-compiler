@@ -152,15 +152,20 @@ export default function OrchestratorPage() {
   }
 
   async function testIntegration(integrationId) {
-    try {
-      const response = await axios.post(
-  `${API_URL}/orchestrate-real`,);
+  try {
+    const response = await axios.post(
+      `${API_URL}/test-integration`,
+      {
+        integration: integrationId
+      }
+    );
 
-      alert(response.data.message);
-    } catch (error) {
-      alert("Integration test failed");
-    }
+    alert(response.data.message);
+  } catch (error) {
+    console.error(error);
+    alert("Integration test failed");
   }
+}
 
   async function runPipeline() {
     console.log("RUN PIPELINE STARTED");
