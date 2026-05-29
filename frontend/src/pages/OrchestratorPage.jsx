@@ -219,6 +219,10 @@ export default function OrchestratorPage() {
           prompt: prompt,
         },
       );
+      console.log(
+  "ORCHESTRATE RESPONSE",
+  response.data
+);
 
       setResult(response.data);
     } catch (error) {
