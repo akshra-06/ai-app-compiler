@@ -213,7 +213,7 @@ export default function OrchestratorPage() {
       };
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/orchestrate-real",
+         `${API_URL}/orchestrate-real`,
 
         {
           prompt: prompt,
