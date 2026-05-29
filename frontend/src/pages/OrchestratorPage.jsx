@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Card({ title, children }) {
   return (
@@ -153,8 +154,7 @@ export default function OrchestratorPage() {
   async function testIntegration(integrationId) {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/test-integration/${integrationId}`,
-      );
+  `${API_URL}/orchestrate-real`,);
 
       alert(response.data.message);
     } catch (error) {
@@ -180,7 +180,7 @@ export default function OrchestratorPage() {
         eventSourceRef.current.close();
       }
       eventSourceRef.current = new EventSource(
-        "http://127.0.0.1:8000/stream-generate",
+        `${API_URL}/stream-generate`,
       );
 
       const eventSource = eventSourceRef.current;
