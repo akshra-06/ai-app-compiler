@@ -151,19 +151,25 @@ export default function OrchestratorPage() {
     }, 2000);
   }
 
-  async function testIntegration(integrationId) {
+async function testIntegration(integrationId) {
   try {
     const response = await axios.post(
-      `${API_URL}/test-integration`,
-      {
-        integration: integrationId
-      }
+      `${API_URL}/test-integration/${integrationId}`
     );
 
-    alert(response.data.message);
+    console.log(response.data);
+
+    alert(
+      response.data.message ||
+      `${integrationId} integration test successful`
+    );
   } catch (error) {
     console.error(error);
-    alert("Integration test failed");
+
+    alert(
+      error.response?.data?.detail ||
+      "Integration test failed"
+    );
   }
 }
 
