@@ -106,6 +106,7 @@ export default function OrchestratorPage() {
 
   const timeoutRef = useRef(null);
   const [completedStages, setCompletedStages] = useState([]);
+  const [selectedModel, setSelectedModel] = useState("auto");
   useEffect(() => {
     return () => {
       eventSourceRef.current?.close();
@@ -227,8 +228,9 @@ async function testIntegration(integrationId) {
          `${API_URL}/orchestrate-real`,
 
         {
-          prompt: prompt,
-        },
+  prompt: prompt,
+  model: selectedModel
+},
       );
       console.log(
   "ORCHESTRATE RESPONSE",
@@ -236,6 +238,7 @@ async function testIntegration(integrationId) {
 );
 
       setResult(response.data);
+      console.log("RESULT STATE:", response.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -291,6 +294,47 @@ Build a CRM with:
         "
         />
 
+<div className="mb-4">
+  <label className="block mb-2 text-sm font-medium">
+  Select Model
+</label>
+
+<select
+  value={selectedModel}
+  onChange={(e) => setSelectedModel(e.target.value)}
+  className="
+    bg-slate-800
+    border
+    border-slate-700
+    rounded-lg
+    px-4
+    py-2
+    w-full
+  "
+>
+  <option value="auto">
+    Auto (Recommended)
+  </option>
+
+  <option value="openai/gpt-3.5-turbo">
+    GPT-3.5 Turbo
+  </option>
+
+  <option value="openai/gpt-4o-mini">
+    GPT-4o Mini
+  </option>
+
+  <option value="openai/gpt-4o">
+    GPT-4o
+  </option>
+
+
+  <option value="google/gemini-2.0-flash-lite-001">
+    Gemini 1.5 Pro
+  </option>
+
+</select>
+</div>
         <button
           onClick={runPipeline}
           className="
@@ -307,7 +351,7 @@ Build a CRM with:
           Generate App
         </button>
       </div>
-
+     
       {(loading || result) && (
         <div
           className="
@@ -365,7 +409,7 @@ Build a CRM with:
           </div>
         </div>
       )}
-
+    
       {result && (
         <div className="space-y-8">
           <Card title="Generation Summary">
@@ -424,6 +468,16 @@ Build a CRM with:
                 </div>
               </div>
             </div>
+
+            <div className="bg-slate-800 p-4 rounded-xl text-center">
+  <div className="text-sm text-slate-400">
+    Model
+  </div>
+
+  <div className="text-xl font-bold text-cyan-400">
+    {selectedModel}
+  </div>
+</div>
           </Card>
           <Card title="Intent">
             <div className="space-y-6">
@@ -860,7 +914,7 @@ duration-200
                 </pre>
               </div>
             </div>
-          </Card>
+                  </Card>
         </div>
       )}
     </div>
