@@ -309,8 +309,8 @@ Build a CRM with:
 
             <option value="openai/gpt-4o">GPT-4o</option>
 
-            <option value="google/gemini-2.0-flash-lite-001">
-              Gemini 1.5 Pro
+            <option value="deepseek/deepseek-v4-flash:free">
+              DeepSeek V4 Flash
             </option>
           </select>
         </div>
